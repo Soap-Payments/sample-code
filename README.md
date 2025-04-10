@@ -5,3 +5,5 @@ Your client calls your backend which calls the Soap API to create a checkout and
 For webhook implementation, see webhooks.js.
 
 To get your API key and webhooks signing secret go to your Soap Dashboard and click the "Developers" tab.
+
+Check out .env.example for the environment variables you need to set.
