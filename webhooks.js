@@ -28,7 +28,7 @@ export function processEvent(event) {
 
   switch (eventType) {
     case 'checkout.succeeded':
-      return data.type === 'deposit' ? { balance_change_amount_cents: amount } : { balance_change_amount_cents: -amount }
+      return txType === 'credit' ? { balance_change_amount_cents: amount } : { balance_change_amount_cents: -amount }
     case 'checkout.hold':
       return { balance_change_amount_cents: -amount }
     case 'checkout.release_hold':
