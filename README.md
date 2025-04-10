@@ -1,3 +1,7 @@
-This Express.js application demonstrates a simple integration with the Soap payment platform. The backend creates Soap checkouts by making API calls to Soap's servers with transaction details (customer ID, type, and balance amount for withdrawals), then redirects users to the Soap checkout page to complete their transaction. The application handles both deposit and withdrawal flows through a minimal HTML interface with two buttons.
+This app shows how to create checkouts and handle webhooks.
 
-When a user clicks either the "Deposit" or "Withdraw" button, the form submits to the server, which processes the request by calling the Soap API with the appropriate parameters. The server then receives a checkout URL from Soap and redirects the user's browser to this URL, where they can complete their transaction securely on Soap's platform. For withdrawals, the application includes the user's balance amount in cents as part of the API request.
+Your client calls your backend which calls the Soap API to create a checkout and you return the `url` field to the client which does a redirect (or opens a Webview in mobile)
+
+For webhook implementation, see webhooks.js.
+
+To get your API key and webhooks signing secret go to your Soap Dashboard and click the "Developers" tab.
