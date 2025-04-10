@@ -63,6 +63,12 @@ app.post('/webhooks', async (req, res) => {
   const rawBody = JSON.stringify(req.body)
   const signature = req.headers['soap_signature']
 
+  // in your app you would pull the actual user
+  user = {
+    email: 'user@example.com',
+    available_balance_cents: 10000,
+  }
+
   if (!signature || !verifySignature(rawBody, signature)) {
     return res.status(401).send('Invalid signature')
   }
