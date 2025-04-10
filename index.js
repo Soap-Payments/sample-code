@@ -28,7 +28,7 @@ async function createSoapCheckout(type) {
   // }]
 
   if (type === 'withdrawal') {
-    body.balance_amount_cents = 10000 // whatever the actual balance is
+    body.balance_amount_cents = 10000 // the user's withdrawable balance in cents
   }
 
   const response = await fetch(CHECKOUT_URL, {
