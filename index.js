@@ -12,12 +12,12 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(express.static(path.join(__dirname, 'public')))
 
 async function createSoapCheckout(type) {
-  const SOAP_URL = process.env.SOAP_URL // https://api-sandbox.soap.com/api/vi
+  const SOAP_URL = process.env.SOAP_URL // https://api-sandbox.paywithsoap.com/api/v1
   const SOAP_API_KEY = process.env.SOAP_API_KEY
   const CHECKOUT_URL = `${SOAP_URL}/checkouts`
   
   let body = {
-    customer_id: '1234567890',// the Soap Customer ID of the logged in user
+    customer_id: 'cus_1234567890',// the Soap Customer ID of the logged in user
     type: type
   }
 
