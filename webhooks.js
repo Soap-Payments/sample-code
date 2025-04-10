@@ -39,7 +39,6 @@ export function processEvent(event) {
       // if it was a credit you need to subtract balance
       if (txType === 'debit') return { balance_change_amount_cents: amount }
       if (txType === 'credit') return { balance_change_amount_cents: -amount }
-      return { balance_change_amount_cents: 0 }
     case 'checkout.failed':
       // dont need to do anything here, mostly for tracking purposes and/or you want to disable user accounts for suspicious activity
     default:
