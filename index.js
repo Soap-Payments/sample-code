@@ -16,9 +16,16 @@ async function createSoapCheckout(type) {
   const SOAP_URL = process.env.SOAP_URL // https://api-sandbox.paywithsoap.com/api/v1
   const SOAP_API_KEY = process.env.SOAP_API_KEY
   const CHECKOUT_URL = `${SOAP_URL}/checkouts`
+
+  // in your app you would pull the actual user
+  user = {
+    email: 'user@example.com',
+    available_balance_cents: 10000,
+    soap_customer_id: "cus_12345"
+  }
   
   let body = {
-    customer_id: 'cus_1234567890',// the Soap Customer ID of the logged in user
+    customer_id: user.soap_customer_id,// the Soap Customer ID of the logged in user
     type: type // "deposit" or "withdrawal"
   }
 
@@ -29,7 +36,7 @@ async function createSoapCheckout(type) {
   // }]
 
   if (type === 'withdrawal') {
-    body.balance_amount_cents = 10000 // the user's withdrawable balance in cents
+    body.balance_amount_cents = user.available_balance_cents // the user's withdrawable balance in cents
   }
 
   const response = await fetch(CHECKOUT_URL, {
@@ -67,6 +74,7 @@ app.post('/webhooks', async (req, res) => {
   user = {
     email: 'user@example.com',
     available_balance_cents: 10000,
+    soap_customer_id: "cus_12345"
   }
 
   if (!signature || !verifySignature(rawBody, signature)) {
