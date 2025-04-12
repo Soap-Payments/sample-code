@@ -18,7 +18,7 @@ async function createSoapCheckout(type) {
   const CHECKOUT_URL = `${SOAP_URL}/checkouts`
 
   // in your app you would pull the actual user
-  user = {
+  const user = {
     email: 'user@example.com',
     available_balance_cents: 10000,
     soap_customer_id: "cus_12345"
@@ -71,7 +71,7 @@ app.post('/webhooks', async (req, res) => {
   const signature = req.headers['soap_signature']
 
   // in your app you would pull the actual user
-  user = {
+  const user = {
     email: 'user@example.com',
     available_balance_cents: 10000,
     soap_customer_id: "cus_12345"
