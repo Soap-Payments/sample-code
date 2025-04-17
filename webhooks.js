@@ -28,7 +28,9 @@ export function processEvent(event) {
 
   switch (eventType) {
     case 'checkout.succeeded':
-      return txType === 'credit' ? { balance_change_amount_cents: amount } : { balance_change_amount_cents: -amount }
+      // if it's a credit, we need to add the amount to the balance
+      // if it's a debit, we don't need to do anything since the balance is already updated in the hold event
+      return txType === 'credit' ? { balance_change_amount_cents: amount } : { balance_change_amount_cents: 0}
     case 'checkout.hold':
       return { balance_change_amount_cents: -amount }
     case 'checkout.release_hold':
