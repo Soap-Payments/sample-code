@@ -9,6 +9,11 @@ const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
 
 const app = express()
+app.use(bodyParser.json({
+  verify: (req, res, buf) => {
+    req.rawBody = buf.toString();
+  }
+}));
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(express.static(path.join(__dirname, 'public')))
 
@@ -84,7 +89,7 @@ app.post('/webhooks', async (req, res) => {
   try {
     const { balance_change_amount_cents } = processEvent(req.body)
     user.available_balance_cents += balance_change_amount_cents
-    return res.status(200)
+    return res.status(200).send('OK')
   } catch (err) {
     console.error('Error processing webhook:', err)
     return res.status(500).send('Internal error')
