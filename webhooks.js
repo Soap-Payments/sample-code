@@ -43,6 +43,7 @@ export function processEvent(event) {
       if (txType === 'credit') return { balance_change_amount_cents: -amount }
     case 'checkout.failed':
       // dont need to do anything here, mostly for tracking purposes and/or you want to disable user accounts for suspicious activity
+      return { balance_change_amount_cents: 0 }
     default:
       throw new Error(`Unknown event type: ${eventType}`)
   }
