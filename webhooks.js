@@ -24,9 +24,22 @@ export function verifySignature(rawBody, signatureHeader) {
 export function processEvent(event) {
   const { type: eventType, data } = event
 
+  console.log(eventType)
+  console.log(data)
+
   // if you put a hold on the players balance before they started the checkout, you need to release the hold here
   // This should only be on withdrawal
   if (eventType === 'checkout.terminally_failed') {
+    if (data.type === "withdrawal") {
+      const balance = 1000 // look up the amount you put on hold
+      return { balance_change_amount_cents: balance } // add it back to the balance
+    } else {
+      return { balance_change_amount_cents: 0 }
+    }
+  }
+
+  // This could be another example if you are placing balance on hold for a withdrawal
+  if (eventType === 'checkout.expired') {
     if (data.type === "withdrawal") {
       const balance = 1000 // look up the amount you put on hold
       return { balance_change_amount_cents: balance } // add it back to the balance
@@ -55,6 +68,8 @@ export function processEvent(event) {
       if (txType === 'credit') return { balance_change_amount_cents: -amount }
     case 'checkout.failed':
       // dont need to do anything here, mostly for tracking purposes and/or you want to disable user accounts for suspicious activity
+      return { balance_change_amount_cents: 0 }
+    case 'checkout.pending':
       return { balance_change_amount_cents: 0 }
     default:
       throw new Error(`Unknown event type: ${eventType}`)
