@@ -73,7 +73,7 @@ app.post('/submit', async (req, res) => {
 
 app.post('/webhooks', async (req, res) => {
   const rawBody = JSON.stringify(req.body)
-  const signature = req.headers['soap_signature']
+  const signature = req.headers['soap-webhook-signature']
 
   // in your app you would pull the actual user
   const user = {
