@@ -1,9 +1,7 @@
-This app shows how to create checkouts and handle webhooks.
+Very simple integration composed of 3 components:
 
-Your client calls your backend which calls the Soap API to create a checkout and you return the `url` field to the client which does a redirect (or opens a Webview in mobile)
+`index.html` is your UI that has the deposit and withdraw buttons
 
-For webhook implementation, see webhooks.js. Please not this is a sample implementation of how to adjust a player's balance, ultimately its up to you to decide how to do this.
+`index.js` is your controller that talks to the Soap API
 
-To get your API key and webhooks signing secret go to your Soap Dashboard and click the "Developers" tab.
-
-Check out .env.example for the environment variables you need to set.
+`webhooks.js` is a consumer to webhooks and it updates the player's balance
