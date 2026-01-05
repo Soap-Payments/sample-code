@@ -71,6 +71,9 @@ export function processEvent(event) {
       return { balance_change_amount_cents: 0 }
     case 'checkout.pending':
       return { balance_change_amount_cents: 0 }
+    case 'checkout.voided':
+      if (txType === 'debit') return { balance_change_amount_cents: amount }
+      if (txType === 'credit') return { balance_change_amount_cents: -amount }
     default:
       throw new Error(`Unknown event type: ${eventType}`)
   }
