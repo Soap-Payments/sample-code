@@ -29,6 +29,7 @@ export function processEvent(event) {
 
   // if you put a hold on the players balance before they started the checkout, you need to release the hold here
   // This should only be on withdrawal
+  // This is not recommended to do at all, instead use Soap's built in payment reviews
   if (eventType === 'checkout.terminally_failed') {
     if (data.type === "withdrawal") {
       const balance = 1000 // look up the amount you put on hold
@@ -46,6 +47,12 @@ export function processEvent(event) {
     } else {
       return { balance_change_amount_cents: 0 }
     }
+  }
+
+  if (eventType === 'checkout.payment_review.created' || eventType === 'checkout.payment_review.approved' || eventType === 'checkout.payment_review.declined') {
+    // If you are using these events to move money out of a players withdrawable or available balance we highly recommend creating an additional bucket called "under review"
+    // Do not mix these events with checkout.hold and release_hold, they mean different things!!
+    return { balance_change_amount_cents: 0 }
   }
 
   const amount = data.charge.amount_cents
