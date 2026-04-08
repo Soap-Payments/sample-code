@@ -49,7 +49,7 @@ export function processEvent(event) {
     }
   }
 
-  if (eventType === 'checkout.payment_review.created' || eventType === 'checkout.payment_review.approved' || eventType === 'checkout.payment_review.declined') {
+  if (eventType === 'checkout.review.created' || eventType === 'checkout.review.approved' || eventType === 'checkout.review.declined') {
     // If you are using these events to move money out of a players withdrawable or available balance we highly recommend creating an additional bucket called "under review"
     // Do not mix these events with checkout.hold and release_hold, they mean different things!!
     return { balance_change_amount_cents: 0 }
